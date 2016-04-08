@@ -7,7 +7,7 @@ module.exports = {
 	entry: [
 		'webpack-dev-server/client?http://localhost:8080',
 		'webpack/hot/dev-server',
-		'./src/app/index'
+		'./src/index'
 	],
 	output: {
 		path: path.join(__dirname, 'dist'),
@@ -30,7 +30,7 @@ module.exports = {
 			loaders: ['babel'],
 			exclude: /node_modules/
 		}]
-	}
+	},
 	devServer: {
 		contentBase: './dist',
 		hot: true

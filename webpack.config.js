@@ -5,34 +5,30 @@ const htmlWebpackPlugin 	= require('html-webpack-plugin');
 module.exports = {
 	devtool: 'cheap-eval-source-map',
 	entry: [
-		'webpack-dev-server/client?http://localhost:8080',
-		'webpack/hot/dev-server',
+		'webpack-hot-middleware/client',
 		'./src/index'
 	],
 	output: {
 		path: path.join(__dirname, 'dist'),
-		filename: 'bundle.js'
+		filename: 'bundle.js',
+		publicPath: '/dist/'
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new htmlWebpackPlugin({
-			template: './src/index.html'
-		}),
+		new webpack.NoErrorsPlugin()
 	],
 	module: {
-		preLoaders: [{
-			test: /\.js$/,
-			loaders: ['eslint-loader'],
-			exclude: /node_modules/
-		}],
 		loaders: [{
 			test: /\.js$/,
 			loaders: ['babel'],
-			exclude: /node_modules/
+			include: path.join(__dirname, 'src')
 		}]
 	},
-	devServer: {
-		contentBase: './dist',
-		hot: true
-	},
+	eslint: {
+		failOnWarning: false,
+		failOnError: false,
+		emitError: false,
+		emitWarning: false,
+		quiet: true
+	}
 };

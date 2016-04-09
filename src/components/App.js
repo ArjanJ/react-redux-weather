@@ -1,11 +1,11 @@
-import React from 'React';
-import SearchWeather from '../containers/SearchWeather';
-import Weather from '../containers/Weather';
+import React from 'react';
+import SearchWeather from './SearchWeather';
+import WeatherCard from './WeatherCard';
 
 const App = () => (
 	<div>
 		<SearchWeather />
-		<Weather />
+		<WeatherCard />
 	</div>
 );
 

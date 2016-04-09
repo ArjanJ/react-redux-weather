@@ -1,12 +1,10 @@
 import fetch from 'isomorphic-fetch';
 
-export const REQUEST_WEATHER = 'REQUEST_WEATHER';
-export const RECEIVE_WEATHER = 'RECEIVE_WEATHER';
-export const REQUEST_LOCATION = 'REQUEST_LOCATION';
-export const RECEIVE_LOCATION = 'RECEIVE_LOCATION';
-
 const APP_ID = '9ccb20b5e2fd3d34779cb287dcc4e336';
 const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
+
+export const REQUEST_WEATHER = 'REQUEST_WEATHER';
+export const RECEIVE_WEATHER = 'RECEIVE_WEATHER';
 
 export function requestWeather() {
 	return {
@@ -24,7 +22,7 @@ export function receiveWeather(json) {
 }
 
 export function fetchWeather(params) {
-	const url = `${BASE_URL}?${params}&appid=${APP_ID}`;
+	const url = `${BASE_URL}?${params}&units=metric&appid=${APP_ID}`;
 
 	return function (dispatch) {
 		dispatch(requestWeather());
@@ -35,6 +33,9 @@ export function fetchWeather(params) {
 			.catch(error => console.error(error));
 	};
 }
+
+export const REQUEST_LOCATION = 'REQUEST_LOCATION';
+export const RECEIVE_LOCATION = 'RECEIVE_LOCATION';
 
 export function requestLocation() {
 	return {
@@ -67,9 +68,7 @@ export function fetchLocation() {
 		}
 
 		function error(error) {
-			// console.error(error);
-			console.log('error callback here');
-			dispatch(fetchWeather('q=London'));
+			console.error(error);
 		}
 	}
 }

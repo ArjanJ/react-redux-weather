@@ -5,22 +5,12 @@ if (module.hot) {
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import rootReducer from './reducers';
+import configureStore from './store';
 import { fetchLocation } from './actions';
 
 import App from './components/App';
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-
-if (module.hot) {
-	// Enable Webpack hot module replacement for reducers
-	module.hot.accept('./reducers', () => {
-		const nextRootReducer = require('./reducers').default;
-		store.replaceReducer(nextRootReducer);
-	});
-}
+const store = configureStore();
 
 store.subscribe(() => {
 	console.log(store.getState());

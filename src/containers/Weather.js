@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { fetchWeather } from '../actions';
+import WeatherCity from '../components/WeatherCity';
+import WeatherConditions from '../components/WeatherConditions';
+import WeatherTemp from '../components/WeatherTemp';
+import Loading from '../components/Loading';
 
 
-class WeatherCard extends React.Component {
+class Weather extends React.Component {
 	constructor(props) {
 		super(props);
-		this.renderWeather = this.renderWeather.bind(this);
 	}
 
 	componentWillUpdate(nextProps, nextState) {
@@ -22,24 +25,20 @@ class WeatherCard extends React.Component {
 		this.props.dispatch(fetchWeather(params));
 	}
 
-	renderWeather(data) {
-		return (
-			<div>
-				<h2>{ data.name }</h2>
-				<div>
-					{ Object.keys(data.weather).map(key => <span key={key}>{ data.weather[key].main }</span>)}
-				</div>
-			</div>
-		);
-	}
-
 	render() {
-		const { weather } = this.props;
-		return(
-			<div className="WeatherCard">
-				<h1>Weather</h1>
-				<p>{ weather.isFetching ? 'Loading...' : 'Loaded'}</p>
-				{ weather.data ? this.renderWeather(weather.data) : false }
+		const { isFetching, weather } = this.props;
+
+		if (!weather.data || isFetching) {
+			return (
+				<Loading />
+			);
+		}
+
+		return (
+			<div className="Weather">
+				<WeatherCity city={weather.data.name} />
+				<WeatherTemp temperature={weather.data.main.temp} />
+				<WeatherConditions conditions={weather.data.weather} />
 			</div>
 		);
 	}
@@ -47,12 +46,13 @@ class WeatherCard extends React.Component {
 
 const mapStateToProps = (state) => {
 	const { location, weather } = state;
+
 	return {
 		location,
 		weather
 	};
 };
 
-WeatherCard = connect(mapStateToProps)(WeatherCard);
+Weather = connect(mapStateToProps)(Weather);
 
-export default WeatherCard;
+export default Weather;

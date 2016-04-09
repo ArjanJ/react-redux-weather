@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchWeather, fetchLocation } from '../actions';
 
-class SearchWeather extends React.Component {
+class Search extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -12,6 +12,7 @@ class SearchWeather extends React.Component {
 		e.preventDefault();
 		const input = this.refs.city;
 		if (!input.value.trim()) return;
+
 		// Update weather with user input
 		this.props.dispatch(fetchWeather(`q=${input.value}`));
 		input.value = '';
@@ -19,23 +20,13 @@ class SearchWeather extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<form onSubmit={this.handleSubmit}>
-					<input placeholder="Enter City" ref="city" />
-				</form>
-			</div>
+			<form onSubmit={this.handleSubmit}>
+				<input placeholder="Enter City" ref="city" />
+			</form>
 		);
 	}
 }
 
-function mapStateToProps(state) {
-	const { location } = state;
+Search = connect()(Search);
 
-	return {
-		location
-	};
-} 
-
-SearchWeather = connect(mapStateToProps)(SearchWeather);
-
-export default SearchWeather;
+export default Search;

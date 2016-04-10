@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchWeather } from '../actions';
+import { fetchWeather, fetchForecast } from '../actions';
 import WeatherCity from '../components/WeatherCity/WeatherCity';
 import WeatherConditions from '../components/WeatherConditions/WeatherConditions';
 import WeatherTemp from '../components/WeatherTemp/WeatherTemp';
+import WeatherForecast from '../components/WeatherForecast/WeatherForecast';
 import WeatherBackground from '../components/WeatherBackground/WeatherBackground';
 import Loading from '../components/Loading/Loading';
 
@@ -24,12 +25,19 @@ class Weather extends React.Component {
 	updateWeather(params) {
 		// Fetch weather data from API
 		this.props.dispatch(fetchWeather(params));
+		this.props.dispatch(fetchForecast(params));
 	}
 
 	render() {
 		const { isFetching, weather } = this.props;
 
-		if (!weather.data || isFetching) {
+		if (weather.error) {
+			return (
+				<p>Failed to get data: {weather.error}</p>
+			);
+		}
+
+		if (!weather.current || !weather.forecast || isFetching) {
 			return (
 				<Loading />
 			);
@@ -37,10 +45,11 @@ class Weather extends React.Component {
 
 		return (
 			<div className="Weather">
-				<WeatherCity city={weather.data.name} />
-				<WeatherTemp temperature={weather.data.main.temp} />
-				<WeatherConditions conditions={weather.data.weather} />
-				<WeatherBackground background={weather.data.weather[0].main} />
+				<WeatherCity city={weather.current.name} />
+				<WeatherTemp temperature={weather.current.main.temp} />
+				<WeatherConditions conditions={weather.current.weather} />
+				<WeatherForecast forecast={weather.forecast.list} />
+				<WeatherBackground background={weather.current.weather[0].main} />
 			</div>
 		);
 	}

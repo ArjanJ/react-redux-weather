@@ -2,3 +2,13 @@
 
 @import "./components/Search/Search.scss";
 @import "./components/WeatherBackground/WeatherBackground.scss";
+
+.WeatherForecast {
+	height: 300px;
+	width: 100%;
+	padding: (0) ($base-space * 2);
+
+	svg {
+		overflow: visible;
+	}
+}

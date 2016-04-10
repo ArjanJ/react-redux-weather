@@ -7,15 +7,5 @@
 		width: 100%;
 		padding: ($base-space);
 		font-size: map-get($heading-sizes, 5);
-		box-shadow:
-			0 1.5px 4px rgba(black, 0),
-			0 1.5px 6px rgba(black, 0);
-
-		&:focus {
-			outline: none;
-			box-shadow:
-				0 1.5px 4px rgba(black, 0.24),
-				0 1.5px 6px rgba(black, 0.12);
-		}
 	}
 }

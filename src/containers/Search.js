@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchWeather, fetchLocation } from '../actions';
+import { fetchWeather, fetchForecast } from '../actions';
 
 class Search extends React.Component {
 	constructor(props) {
@@ -15,6 +15,7 @@ class Search extends React.Component {
 
 		// Update weather with user input
 		this.props.dispatch(fetchWeather(`q=${input.value}`));
+		this.props.dispatch(fetchForecast(`q=${input.value}`));
 		input.value = '';
 	}
 

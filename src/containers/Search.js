@@ -20,8 +20,8 @@ class Search extends React.Component {
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit}>
-				<input placeholder="Enter City" ref="city" />
+			<form className="Search" onSubmit={this.handleSubmit}>
+				<input className="Search__input" placeholder="Search city" ref="city" />
 			</form>
 		);
 	}

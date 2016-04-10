@@ -8,7 +8,9 @@ import { Provider } from 'react-redux';
 import configureStore from './store';
 import { fetchLocation } from './actions';
 
-import App from './components/App';
+import App from './components/App/App';
+
+import './index.scss';
 
 const store = configureStore();
 

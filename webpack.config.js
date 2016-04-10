@@ -1,6 +1,7 @@
 const path 								= require('path');
 const webpack							= require('webpack');
 const htmlWebpackPlugin 	= require('html-webpack-plugin');
+const autoprefixer 				= require('autoprefixer');
 
 module.exports = {
 	devtool: 'cheap-eval-source-map',
@@ -22,13 +23,13 @@ module.exports = {
 			test: /\.js$/,
 			loaders: ['babel'],
 			include: path.join(__dirname, 'src')
+		}, {
+			test: /\.scss$/,
+			loaders: ['style', 'css', 'postcss', 'sass'],
+			exclude: /node_modules/
 		}]
 	},
-	eslint: {
-		failOnWarning: false,
-		failOnError: false,
-		emitError: false,
-		emitWarning: false,
-		quiet: true
+	postcss: function() {
+		return [autoprefixer]
 	}
 };

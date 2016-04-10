@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { fetchWeather } from '../actions';
-import WeatherCity from '../components/WeatherCity';
-import WeatherConditions from '../components/WeatherConditions';
-import WeatherTemp from '../components/WeatherTemp';
-import Loading from '../components/Loading';
+import WeatherCity from '../components/WeatherCity/WeatherCity';
+import WeatherConditions from '../components/WeatherConditions/WeatherConditions';
+import WeatherTemp from '../components/WeatherTemp/WeatherTemp';
+import WeatherBackground from '../components/WeatherBackground/WeatherBackground';
+import Loading from '../components/Loading/Loading';
 
 
 class Weather extends React.Component {
@@ -39,6 +40,7 @@ class Weather extends React.Component {
 				<WeatherCity city={weather.data.name} />
 				<WeatherTemp temperature={weather.data.main.temp} />
 				<WeatherConditions conditions={weather.data.weather} />
+				<WeatherBackground background={weather.data.weather[0].main} />
 			</div>
 		);
 	}

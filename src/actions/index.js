@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
+import { key as APP_ID } from '../../config';
 
-const APP_ID = '9ccb20b5e2fd3d34779cb287dcc4e336';
 const BASE_URL = 'http://api.openweathermap.org/data/2.5';
 
 export const REQUEST_WEATHER = 'REQUEST_WEATHER';
@@ -78,7 +78,10 @@ export function fetchForecast(params) {
 		return fetch(url)
 			.then(response => response.json())
 			.then(json => dispatch(receiveForecast(json)))
-			.catch(error => dispatch(requestForecastFailed(error.toString())));
+			.catch(error => {
+				console.log('error happened: ', error);
+				dispatch(requestForecastFailed(error.toString()))
+			});
 	};
 }
 

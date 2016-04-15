@@ -10,9 +10,6 @@ import Loading from '../components/Loading/Loading';
 
 
 class Weather extends React.Component {
-	constructor(props) {
-		super(props);
-	}
 
 	componentWillUpdate(nextProps, nextState) {
 		if (this.props.location !== nextProps.location) {

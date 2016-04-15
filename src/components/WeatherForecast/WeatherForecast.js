@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const dateToString = (date, multiplier = 1) => {
@@ -50,5 +50,9 @@ class WeatherForecast extends React.Component {
 		);
 	}
 }
+
+WeatherForecast.propTypes = {
+	forecast: PropTypes.array.isRequired
+};
 
 export default WeatherForecast;
